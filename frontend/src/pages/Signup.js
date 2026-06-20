@@ -16,15 +16,24 @@ const Signup=()=>{
     const [emailErr,setEmailErr]=useState("")
     const [passwordErr,setPasswordErr]=useState("")
     const signRequest=async()=>{
-        const data=await SignupApi(name,email,password)
-        if(data.status){
+       try {
+        const data = await SignupApi(name, email, password)
+
+        if (data.status) {
             alert(data.message)
             navigate("/login")
-        }
-        else{
+        } else {
             alert(data.message)
         }
+    } catch (error) {
+        if(error.response){
+            alert(error.response.data.message)
+        }
+        else{
+            alert("System error occured!")
+        }
     }
+}
     return (
         <div className="signFormContainer">
             <div className="signForm">
